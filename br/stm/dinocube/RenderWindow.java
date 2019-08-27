@@ -6,8 +6,7 @@ import java.awt.*;
 public class RenderWindow extends JFrame {
 
     private DinoCube dinoCube;
-
-    private final int DRAWING_SIZE = 60;
+    private int pieceNumber;
 
     public RenderWindow(DinoCube dinoCube) {
         this.dinoCube = dinoCube;
@@ -17,13 +16,66 @@ public class RenderWindow extends JFrame {
         setMinimumSize(new Dimension(500, 800));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel content = new DrawingPanel();
-        setContentPane(content);
+        JPanel pane = new JPanel();
+        pane.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+
+        final JPanel drawingPanel = new DrawingPanel();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        pane.add(drawingPanel, gbc);
+
+        JComboBox<String> pieceList = new JComboBox<>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8"});
+        pieceList.addActionListener(e -> pieceNumber = pieceList.getSelectedIndex() + 1);
+        pieceList.setSelectedIndex(0);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.33;
+        gbc.weighty = 0;
+        pane.add(pieceList, gbc);
+
+        JButton turnCounterClockwise = new JButton("CCW");
+        turnCounterClockwise.addActionListener(e -> {
+            for (int i = 0; i < 2; i++)
+                dinoCube.movePiece(pieceNumber);
+            pane.repaint();
+        });
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.33;
+        gbc.weighty = 0;
+        pane.add(turnCounterClockwise, gbc);
+
+        JButton turnClockwise = new JButton("CW");
+        turnClockwise.addActionListener(e -> {
+            dinoCube.movePiece(pieceNumber);
+            pane.repaint();
+        });
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.33;
+        gbc.weighty = 0;
+        pane.add(turnClockwise, gbc);
+
+        setContentPane(pane);
 
         setVisible(true);
     }
 
     private class DrawingPanel extends JPanel {
+
+        private static final int DRAWING_SIZE = 60;
+
+        public DrawingPanel() {
+            setBackground(Color.BLACK);
+        }
 
         private void drawTextAtPolyCenter(int facePieceId, int[] xPoly, int[] yPoly, Graphics2D g) {
             double x = 0, y = 0;
@@ -88,9 +140,10 @@ public class RenderWindow extends JFrame {
         }
 
         @Override
-        public void paintComponent(Graphics graphics) {
-            super.paintComponents(graphics);
-            Graphics2D g = (Graphics2D) graphics;
+        public void paintComponent(Graphics g) {
+            super.paintComponents(g);
+
+            Graphics2D g2 = (Graphics2D) g.create();
 
             int baseX = this.getWidth() / 2;
             int baseY = DRAWING_SIZE * 2;
@@ -99,8 +152,10 @@ public class RenderWindow extends JFrame {
             int[] yPoints = {baseY, baseY * 2, baseY * 2, baseY * 2, baseY * 3, baseY * 4};
 
             for (int i = 0; i < dinoCube.getFaces().length; i++) {
-                drawFaceFromCenterPoint(xPoints[i], yPoints[i], g, dinoCube.getFaces()[i]);
+                drawFaceFromCenterPoint(xPoints[i], yPoints[i], g2, dinoCube.getFaces()[i]);
             }
+
+            g2.dispose();
         }
     }
 }
