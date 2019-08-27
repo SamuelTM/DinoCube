@@ -28,8 +28,7 @@ public class FacePiece {
     public boolean equals(Object obj) {
         if (obj instanceof FacePiece) {
             FacePiece cp = (FacePiece) obj;
-            return cp.color == color && cp.originalPlace[0] == originalPlace[0]
-                    && cp.originalPlace[1] == originalPlace[1];
+            return cp.id == id;
         }
 
         return false;

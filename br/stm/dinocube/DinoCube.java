@@ -58,8 +58,8 @@ public class DinoCube {
     public void movePiece(int pieceNumber) {
         switch (pieceNumber) {
             case 1:
-                FacePiece slot00 = faces[0][0].clonePiece();
-                FacePiece slot03 = faces[0][3].clonePiece();
+                FacePiece auxA = faces[0][0].clonePiece();
+                FacePiece auxB = faces[0][3].clonePiece();
 
                 faces[0][0] = faces[5][2];
                 faces[0][3] = faces[5][3];
@@ -67,12 +67,15 @@ public class DinoCube {
                 faces[5][2] = faces[1][0];
                 faces[5][3] = faces[1][3];
 
-                faces[1][0] = slot00;
-                faces[1][3] = slot03;
+                faces[1][0] = auxA;
+                faces[1][3] = auxB;
 
                 break;
 
             case 2:
+                auxB = faces[0][1].clonePiece();
+
+                break;
             case 3:
             case 4:
             case 5:
