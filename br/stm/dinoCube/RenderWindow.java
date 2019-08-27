@@ -1,4 +1,4 @@
-package br.stm.dinocube;
+package br.stm.dinoCube;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,10 +72,6 @@ public class RenderWindow extends JFrame {
     private class DrawingPanel extends JPanel {
 
         private static final int DRAWING_SIZE = 60;
-
-        public DrawingPanel() {
-            setBackground(Color.BLACK);
-        }
 
         private void drawTextAtPolyCenter(int facePieceId, int[] xPoly, int[] yPoly, Graphics2D g) {
             double x = 0, y = 0;
