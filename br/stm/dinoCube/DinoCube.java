@@ -6,6 +6,139 @@ public class DinoCube {
     private FacePiece[][] faces;
 
     public DinoCube() {
+        reset();
+    }
+
+    public FacePiece[][] getFaces() {
+        return faces;
+    }
+
+    public void moveCounterClockwise(int pieceNumber) {
+        switch (pieceNumber) {
+            case 1:
+                FacePiece auxA = faces[0][0].clonePiece();
+
+                faces[0][0] = faces[1][0];
+                faces[1][0] = faces[5][3];
+                faces[5][3] = auxA;
+
+                FacePiece auxB = faces[0][3].clonePiece();
+
+                faces[0][3] = faces[1][3];
+                faces[1][3] = faces[5][2];
+                faces[5][2] = auxB;
+
+                break;
+
+            case 2:
+
+                auxA = faces[0][0].clonePiece();
+
+                faces[0][0] = faces[5][1];
+                faces[5][1] = faces[3][0];
+                faces[3][0] = auxA;
+
+                auxB = faces[0][1].clonePiece();
+
+                faces[0][1] = faces[5][2];
+                faces[5][2] = faces[3][1];
+                faces[3][1] = auxB;
+
+                break;
+            case 3:
+
+                auxA = faces[0][1].clonePiece();
+
+                faces[0][1] = faces[3][3];
+                faces[3][3] = faces[2][0];
+                faces[2][0] = auxA;
+
+                auxB = faces[0][2].clonePiece();
+
+                faces[0][2] = faces[3][0];
+                faces[3][0] = faces[2][1];
+                faces[2][1] = auxB;
+
+                break;
+            case 4:
+
+                auxA = faces[0][2].clonePiece();
+
+                faces[0][2] = faces[2][3];
+                faces[2][3] = faces[1][0];
+                faces[1][0] = auxA;
+
+                auxB = faces[0][3].clonePiece();
+
+                faces[0][3] = faces[2][0];
+                faces[2][0] = faces[1][1];
+                faces[1][1] = auxB;
+
+                break;
+            case 5:
+
+                auxA = faces[1][2].clonePiece();
+
+                faces[1][2] = faces[4][2];
+                faces[4][2] = faces[5][3];
+                faces[5][3] = auxA;
+
+                auxB = faces[1][3].clonePiece();
+
+                faces[1][3] = faces[4][3];
+                faces[4][3] = faces[5][0];
+                faces[5][0] = auxB;
+
+                break;
+            case 6:
+
+                auxA = faces[3][1].clonePiece();
+
+                faces[3][1] = faces[5][0];
+                faces[5][0] = faces[4][1];
+                faces[4][1] = auxA;
+
+                auxB = faces[3][2].clonePiece();
+
+                faces[3][2] = faces[5][1];
+                faces[5][1] = faces[4][2];
+                faces[4][2] = auxB;
+
+                break;
+            case 7:
+
+                auxA = faces[2][1].clonePiece();
+
+                faces[2][1] = faces[3][2];
+                faces[3][2] = faces[4][0];
+                faces[4][0] = auxA;
+
+                auxB = faces[2][2].clonePiece();
+
+                faces[2][2] = faces[3][3];
+                faces[3][3] = faces[4][1];
+                faces[4][1] = auxB;
+
+                break;
+            case 8:
+
+                auxA = faces[2][2].clonePiece();
+
+                faces[2][2] = faces[4][3];
+                faces[4][3] = faces[1][1];
+                faces[1][1] = auxA;
+
+                auxB = faces[2][3].clonePiece();
+
+                faces[2][3] = faces[4][0];
+                faces[4][0] = faces[1][2];
+                faces[1][2] = auxB;
+
+                break;
+        }
+    }
+
+    public void reset() {
         faces = new FacePiece[][]{
                 // White
                 new FacePiece[]{
@@ -49,40 +182,5 @@ public class DinoCube {
                         new FacePiece(FaceColor.BLUE, new int[]{5, 3}, 23),
                 },
         };
-    }
-
-    public FacePiece[][] getFaces() {
-        return faces;
-    }
-
-    public void movePiece(int pieceNumber) {
-        switch (pieceNumber) {
-            case 1:
-                FacePiece auxA = faces[0][0].clonePiece();
-                FacePiece auxB = faces[0][3].clonePiece();
-
-                faces[0][0] = faces[5][2];
-                faces[0][3] = faces[5][3];
-
-                faces[5][2] = faces[1][0];
-                faces[5][3] = faces[1][3];
-
-                faces[1][0] = auxA;
-                faces[1][3] = auxB;
-
-                break;
-
-            case 2:
-                auxB = faces[0][1].clonePiece();
-
-                break;
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-                break;
-        }
     }
 }

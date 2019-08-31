@@ -24,7 +24,7 @@ public class RenderWindow extends JFrame {
         final JPanel drawingPanel = new DrawingPanel();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 4;
         gbc.weightx = 1;
         gbc.weighty = 1;
         pane.add(drawingPanel, gbc);
@@ -35,34 +35,46 @@ public class RenderWindow extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        gbc.weightx = 0.33;
+        gbc.weightx = 0.25;
         gbc.weighty = 0;
         pane.add(pieceList, gbc);
 
         JButton turnCounterClockwise = new JButton("CCW");
         turnCounterClockwise.addActionListener(e -> {
-            for (int i = 0; i < 2; i++)
-                dinoCube.movePiece(pieceNumber);
+            dinoCube.moveCounterClockwise(pieceNumber);
             pane.repaint();
         });
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        gbc.weightx = 0.33;
+        gbc.weightx = 0.25;
         gbc.weighty = 0;
         pane.add(turnCounterClockwise, gbc);
 
         JButton turnClockwise = new JButton("CW");
         turnClockwise.addActionListener(e -> {
-            dinoCube.movePiece(pieceNumber);
+            for (int i = 0; i < 2; i++)
+                dinoCube.moveCounterClockwise(pieceNumber);
             pane.repaint();
         });
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        gbc.weightx = 0.33;
+        gbc.weightx = 0.25;
         gbc.weighty = 0;
         pane.add(turnClockwise, gbc);
+
+        JButton resetCube = new JButton("Reset");
+        resetCube.addActionListener(e -> {
+            dinoCube.reset();
+            pane.repaint();
+        });
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.25;
+        gbc.weighty = 0;
+        pane.add(resetCube, gbc);
 
         setContentPane(pane);
 
@@ -71,7 +83,7 @@ public class RenderWindow extends JFrame {
 
     private class DrawingPanel extends JPanel {
 
-        private static final int DRAWING_SIZE = 60;
+        private static final int DRAWING_SIZE = 70;
 
         private void drawTextAtPolyCenter(int facePieceId, int[] xPoly, int[] yPoly, Graphics2D g) {
             double x = 0, y = 0;
