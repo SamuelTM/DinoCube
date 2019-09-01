@@ -6,13 +6,14 @@ public class DinoCube {
     private FacePiece[][] faces;
 
     public DinoCube() {
-        reset();
+        faces = getDefaultState();
     }
 
     public FacePiece[][] getFaces() {
         return faces;
     }
 
+    // Rotates in counter-clockwise motion
     public void rotateAxis(int axis) {
         switch (axis) {
             case 1:
@@ -138,8 +139,8 @@ public class DinoCube {
         }
     }
 
-    public void reset() {
-        faces = new FacePiece[][]{
+    public FacePiece[][] getDefaultState() {
+        return new FacePiece[][]{
                 // White
                 new FacePiece[]{
                         new FacePiece(FaceColor.WHITE, new int[]{0, 0}, 0),
@@ -182,5 +183,25 @@ public class DinoCube {
                         new FacePiece(FaceColor.BLUE, new int[]{5, 3}, 23),
                 },
         };
+    }
+
+    public void reset() {
+        faces = getDefaultState();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < faces.length; i++) {
+            FacePiece[] face = faces[i];
+            for (int j = 0; j < face.length; j++) {
+                FacePiece piece = face[j];
+                sb.append(piece.getId());
+                if (!(i == faces.length - 1 && j == face.length - 1))
+                    sb.append(",");
+            }
+        }
+
+        return sb.toString();
     }
 }
