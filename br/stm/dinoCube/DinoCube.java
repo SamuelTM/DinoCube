@@ -7,14 +7,19 @@ public class DinoCube {
 
     public DinoCube() {
         reset();
+        for (int i = 0; i < faces.length; i++) {
+            for (int j = 0; j < faces[i].length; j++) {
+                System.out.println(faces[i][j].getPieceColor());
+            }
+        }
     }
 
     public FacePiece[][] getFaces() {
         return faces;
     }
 
-    public void moveCounterClockwise(int pieceNumber) {
-        switch (pieceNumber) {
+    public void rotateAxis(int axis) {
+        switch (axis) {
             case 1:
                 FacePiece auxA = faces[0][0].clonePiece();
 

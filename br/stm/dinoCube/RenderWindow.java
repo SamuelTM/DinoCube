@@ -13,7 +13,7 @@ public class RenderWindow extends JFrame {
 
         setTitle("Dino Cube");
 
-        setMinimumSize(new Dimension(500, 800));
+        setMinimumSize(new Dimension(400, 700));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel pane = new JPanel();
@@ -41,7 +41,7 @@ public class RenderWindow extends JFrame {
 
         JButton turnCounterClockwise = new JButton("CCW");
         turnCounterClockwise.addActionListener(e -> {
-            dinoCube.moveCounterClockwise(pieceNumber);
+            dinoCube.rotateAxis(pieceNumber);
             pane.repaint();
         });
         gbc.gridx = 1;
@@ -54,7 +54,7 @@ public class RenderWindow extends JFrame {
         JButton turnClockwise = new JButton("CW");
         turnClockwise.addActionListener(e -> {
             for (int i = 0; i < 2; i++)
-                dinoCube.moveCounterClockwise(pieceNumber);
+                dinoCube.rotateAxis(pieceNumber);
             pane.repaint();
         });
         gbc.gridx = 2;
@@ -78,6 +78,7 @@ public class RenderWindow extends JFrame {
 
         setContentPane(pane);
 
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
