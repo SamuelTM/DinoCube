@@ -84,7 +84,7 @@ public class RenderWindow extends JFrame {
 
     private class DrawingPanel extends JPanel {
 
-        private static final int DRAWING_SIZE = 70;
+        private static final int DRAWING_SIZE = 50;
 
         private void drawTextAtPolyCenter(int facePieceId, int[] xPoly, int[] yPoly, Graphics2D g) {
             double x = 0, y = 0;

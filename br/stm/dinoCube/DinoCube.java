@@ -7,11 +7,6 @@ public class DinoCube {
 
     public DinoCube() {
         reset();
-        for (int i = 0; i < faces.length; i++) {
-            for (int j = 0; j < faces[i].length; j++) {
-                System.out.println(faces[i][j].getPieceColor());
-            }
-        }
     }
 
     public FacePiece[][] getFaces() {
