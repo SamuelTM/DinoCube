@@ -13,10 +13,9 @@ public class DinoCube {
         return faces;
     }
 
-    // Rotates in counter-clockwise motion
     public void rotateAxis(int axis) {
         switch (axis) {
-            case 1:
+            case -1:
                 FacePiece auxA = faces[0][0].clonePiece();
 
                 faces[0][0] = faces[1][0];
@@ -31,7 +30,7 @@ public class DinoCube {
 
                 break;
 
-            case 2:
+            case -2:
 
                 auxA = faces[0][0].clonePiece();
 
@@ -46,7 +45,7 @@ public class DinoCube {
                 faces[3][1] = auxB;
 
                 break;
-            case 3:
+            case -3:
 
                 auxA = faces[0][1].clonePiece();
 
@@ -61,7 +60,7 @@ public class DinoCube {
                 faces[2][1] = auxB;
 
                 break;
-            case 4:
+            case -4:
 
                 auxA = faces[0][2].clonePiece();
 
@@ -76,7 +75,7 @@ public class DinoCube {
                 faces[1][1] = auxB;
 
                 break;
-            case 5:
+            case -5:
 
                 auxA = faces[1][2].clonePiece();
 
@@ -91,7 +90,7 @@ public class DinoCube {
                 faces[5][0] = auxB;
 
                 break;
-            case 6:
+            case -6:
 
                 auxA = faces[3][1].clonePiece();
 
@@ -106,7 +105,7 @@ public class DinoCube {
                 faces[4][2] = auxB;
 
                 break;
-            case 7:
+            case -7:
 
                 auxA = faces[2][1].clonePiece();
 
@@ -121,7 +120,7 @@ public class DinoCube {
                 faces[4][1] = auxB;
 
                 break;
-            case 8:
+            case -8:
 
                 auxA = faces[2][2].clonePiece();
 
@@ -135,6 +134,14 @@ public class DinoCube {
                 faces[4][0] = faces[1][2];
                 faces[1][2] = auxB;
 
+                break;
+            // Default for any positive number, which means it's just
+            // clockwise motion, so we rotate the axis twice
+            default:
+                if (axis >= 1 && axis <= 8) {
+                    for (int i = 0; i < 2; i++)
+                        rotateAxis(axis * -1);
+                }
                 break;
         }
     }
@@ -189,9 +196,20 @@ public class DinoCube {
         faces = getDefaultState();
     }
 
+    public DinoCube cloneCube() {
+        final DinoCube clone = new DinoCube();
+        for (int i = 0; i < faces.length; i++) {
+            for (int j = 0; j < faces[i].length; j++) {
+                clone.getFaces()[i][j] = faces[i][j].clonePiece();
+            }
+        }
+
+        return clone;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("[");
         for (int i = 0; i < faces.length; i++) {
             FacePiece[] face = faces[i];
             for (int j = 0; j < face.length; j++) {
@@ -202,6 +220,26 @@ public class DinoCube {
             }
         }
 
-        return sb.toString();
+        return sb.append("]").toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DinoCube) {
+            DinoCube dc = (DinoCube) obj;
+            for (int i = 0; i < dc.getFaces().length; i++) {
+                FacePiece[] currentFace = dc.getFaces()[i];
+                for (int j = 0; j < currentFace.length; j++) {
+                    FacePiece currentPiece = currentFace[j];
+                    if (!currentPiece.equals(faces[i][j])) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

@@ -1,23 +1,43 @@
 package br.stm.dinoCube;
 
+import br.stm.dinoCube.ui.RenderWindow;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
-    private static void permute(int nLevels, int depth, DinoCube baseCube) {
-        if (depth < nLevels) {
-            System.out.println("---- Level " + depth + " ----");
-            for (int i = 1; i < 9; i++) {
-                baseCube.rotateAxis(i);
-                System.out.println(baseCube);
-                baseCube.rotateAxis(i);
-                baseCube.rotateAxis(i);
-                permute(nLevels, depth + 1, baseCube);
+    private static class Node<T> {
+        public T data;
+        public Node<T> parent;
+        public List<Node<T>> children;
+    }
+
+    private static final int[] POSSIBLE_MOVES = {1, -1, 2, -2};
+
+    private static void permute(int desiredDepth, int currentDepth, DinoCube currentCube, List<DinoCube> cubeStates) {
+        if (!cubeStates.contains(currentCube)) {
+            System.out.println("Added cube " + currentCube + " at depth " + currentDepth);
+            cubeStates.add(currentCube);
+        }
+
+        if (currentDepth < desiredDepth) {
+            for (int move : POSSIBLE_MOVES) {
+                System.out.println("\nDo move " + move + " from cube " + currentCube);
+                DinoCube clone = currentCube.cloneCube();
+                clone.rotateAxis(move);
+                System.out.println("New cube now is " + clone);
+                permute(desiredDepth, currentDepth + 1, clone, cubeStates);
             }
         }
     }
 
     public static void main(String[] args) {
-        DinoCube cube = new DinoCube();
-        new RenderWindow(cube);
-        //permute(1, 0, cube);
+//        new RenderWindow(new DinoCube());
+
+        List<DinoCube> cubeStates = new ArrayList<>();
+        permute(1, 0, new DinoCube(), cubeStates);
+
+        System.out.println(cubeStates.size());
     }
 }
