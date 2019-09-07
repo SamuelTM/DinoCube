@@ -41,7 +41,7 @@ public class RenderWindow extends JFrame {
 
         JButton turnCounterClockwise = new JButton("CCW");
         turnCounterClockwise.addActionListener(e -> {
-            dinoCube.rotateAxis(pieceNumber);
+            dinoCube.rotateAxis(pieceNumber * -1);
             pane.repaint();
         });
         gbc.gridx = 1;
@@ -53,8 +53,7 @@ public class RenderWindow extends JFrame {
 
         JButton turnClockwise = new JButton("CW");
         turnClockwise.addActionListener(e -> {
-            for (int i = 0; i < 2; i++)
-                dinoCube.rotateAxis(pieceNumber);
+            dinoCube.rotateAxis(pieceNumber);
             pane.repaint();
         });
         gbc.gridx = 2;
