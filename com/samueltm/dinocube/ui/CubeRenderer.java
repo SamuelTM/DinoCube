@@ -1,7 +1,7 @@
-package br.stm.dinoCube.ui;
+package com.samueltm.dinocube.ui;
 
-import br.stm.dinoCube.DinoCube;
-import br.stm.dinoCube.FacePiece;
+import com.samueltm.dinocube.DinoCube;
+import com.samueltm.dinocube.FacePiece;
 
 import java.awt.*;
 

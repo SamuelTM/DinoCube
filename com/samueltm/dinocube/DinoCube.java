@@ -1,4 +1,4 @@
-package br.stm.dinoCube;
+package com.samueltm.dinocube;
 
 public class DinoCube {
 
