@@ -2,9 +2,9 @@ package com.samueltm.dinocube;
 
 public class FacePiece {
 
-    private FaceColor color;
-    private int[] originalPlace;
-    private int id;
+    private final FaceColor color;
+    private final int[] originalPlace;
+    private final int id;
 
     FacePiece(FaceColor color, int[] originalPlace, int id) {
         this.color = color;

@@ -11,7 +11,7 @@ public enum FaceColor {
     YELLOW(new Color(242,210,6)),
     RED(new Color(191,40,50));
 
-    private Color color;
+    private final Color color;
 
     FaceColor(Color color) {
         this.color = color;

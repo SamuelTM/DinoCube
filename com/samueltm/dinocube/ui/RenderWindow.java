@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class RenderWindow extends JFrame {
 
-    private DinoCube dinoCube;
+    private final DinoCube dinoCube;
     private int pieceNumber;
 
     public RenderWindow(DinoCube dinoCube) {
@@ -18,8 +18,11 @@ public class RenderWindow extends JFrame {
         setMinimumSize(new Dimension(400, 700));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel pane = new JPanel();
-        pane.setLayout(new GridBagLayout());
+        double drawingPanelVerticalWeight = 0.95;
+        double controlButtonsVerticalWeight = (1 - drawingPanelVerticalWeight) / 4;
+
+        JPanel contentPane = new JPanel();
+        contentPane.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 
@@ -28,8 +31,8 @@ public class RenderWindow extends JFrame {
         gbc.gridy = 0;
         gbc.gridwidth = 4;
         gbc.weightx = 1;
-        gbc.weighty = 1;
-        pane.add(drawingPanel, gbc);
+        gbc.weighty = drawingPanelVerticalWeight;
+        contentPane.add(drawingPanel, gbc);
 
         JComboBox<String> pieceList = new JComboBox<>(new String[]{"1", "2", "3", "4", "5", "6", "7", "8"});
         pieceList.addActionListener(e -> pieceNumber = pieceList.getSelectedIndex() + 1);
@@ -38,46 +41,46 @@ public class RenderWindow extends JFrame {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.weightx = 0.25;
-        gbc.weighty = 0;
-        pane.add(pieceList, gbc);
+        gbc.weighty = controlButtonsVerticalWeight;
+        contentPane.add(pieceList, gbc);
 
         JButton turnCounterClockwise = new JButton("CCW");
         turnCounterClockwise.addActionListener(e -> {
             dinoCube.rotateAxis(pieceNumber * -1);
-            pane.repaint();
+            contentPane.repaint();
         });
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.weightx = 0.25;
-        gbc.weighty = 0;
-        pane.add(turnCounterClockwise, gbc);
+        gbc.weighty = controlButtonsVerticalWeight;
+        contentPane.add(turnCounterClockwise, gbc);
 
         JButton turnClockwise = new JButton("CW");
         turnClockwise.addActionListener(e -> {
             dinoCube.rotateAxis(pieceNumber);
-            pane.repaint();
+            contentPane.repaint();
         });
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.weightx = 0.25;
-        gbc.weighty = 0;
-        pane.add(turnClockwise, gbc);
+        gbc.weighty = controlButtonsVerticalWeight;
+        contentPane.add(turnClockwise, gbc);
 
         JButton resetCube = new JButton("Reset");
         resetCube.addActionListener(e -> {
             dinoCube.reset();
-            pane.repaint();
+            contentPane.repaint();
         });
         gbc.gridx = 3;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.weightx = 0.25;
-        gbc.weighty = 0;
-        pane.add(resetCube, gbc);
+        gbc.weighty = controlButtonsVerticalWeight;
+        contentPane.add(resetCube, gbc);
 
-        setContentPane(pane);
+        setContentPane(contentPane);
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -85,18 +88,18 @@ public class RenderWindow extends JFrame {
 
     private class DrawingPanel extends JPanel {
 
-        private static final int DRAWING_SIZE = 50;
+        public DrawingPanel() {
+        }
 
         @Override
         public void paintComponent(Graphics g) {
-            super.paintComponents(g);
+            super.paintComponent(g);
 
             Graphics2D g2 = (Graphics2D) g.create();
 
-            int startX = this.getWidth() / 2;
-            int startY = DRAWING_SIZE * 2;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            CubeRenderer cr = new CubeRenderer(DRAWING_SIZE, startX, startY, dinoCube);
+            CubeRenderer cr = new CubeRenderer(getWidth(), getHeight(), dinoCube);
 
             cr.drawCube(g2);
 
