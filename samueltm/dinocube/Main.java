@@ -1,6 +1,6 @@
-package com.samueltm.dinocube;
+package samueltm.dinocube;
 
-import com.samueltm.dinocube.ui.RenderWindow;
+import samueltm.dinocube.ui.RenderWindow;
 
 import javax.swing.*;
 
@@ -13,6 +13,6 @@ public class Main {
                 UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        new RenderWindow(new DinoCube());
+        SwingUtilities.invokeLater(() -> new RenderWindow(new DinoCube()));
     }
 }

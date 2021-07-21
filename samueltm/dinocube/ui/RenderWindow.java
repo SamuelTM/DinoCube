@@ -1,6 +1,6 @@
-package com.samueltm.dinocube.ui;
+package samueltm.dinocube.ui;
 
-import com.samueltm.dinocube.DinoCube;
+import samueltm.dinocube.DinoCube;
 
 import javax.swing.*;
 import java.awt.*;

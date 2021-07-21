@@ -1,4 +1,4 @@
-package com.samueltm.dinocube;
+package samueltm.dinocube;
 
 import java.awt.*;
 
